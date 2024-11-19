@@ -1,14 +1,5 @@
-from dendro.sdk import ProcessorBase, BaseModel, Field, InputFile, OutputFile
-
-
-class VolusegContext(BaseModel):
-    input: InputFile = Field(description='Input NWB file in .nwb or .nwb.lindi.tar format')
-    output: OutputFile = Field(description='Output embedding in .lindi.tar format')
-    # units_path: str = Field(description='Path to the units table in the NWB file', default='units')
-    # max_iterations: int = Field(description='Maximum number of iterations', default=1000)
-    # batch_size: int = Field(description='Batch size', default=1000)
-    # bin_size_msec: float = Field(description='Bin size in milliseconds', default=20)
-    # output_dimensions: int = Field(description='Output dimensions', default=10)
+from dendro.sdk import ProcessorBase
+from context import VolusegContext
 
 
 class VolusegProcessor(ProcessorBase):
@@ -20,11 +11,9 @@ class VolusegProcessor(ProcessorBase):
     attributes = {}
 
     @staticmethod
-    def run(
-        context: VolusegContext
-    ):
+    def run(context: VolusegContext):
         import os
-        import lindi
+        # import lindi
         import voluseg
 
         # Load input file
@@ -32,10 +21,10 @@ class VolusegProcessor(ProcessorBase):
         url = input.get_url()
         assert url
 
-        if input.file_base_name.endswith('.lindi.json') or input.file_base_name.endswith('.lindi.tar'):
-            f = lindi.LindiH5pyFile.from_lindi_file(url)
-        else:
-            f = lindi.LindiH5pyFile.from_hdf5_file(url)
+        # if input.file_base_name.endswith('.lindi.json') or input.file_base_name.endswith('.lindi.tar'):
+        #     f = lindi.LindiH5pyFile.from_lindi_file(url)
+        # else:
+        #     f = lindi.LindiH5pyFile.from_hdf5_file(url)
 
         # set and save parameters
         parameters0 = voluseg.parameter_dictionary()
