@@ -1,0 +1,211 @@
+{
+    "name": "voluseg",
+    "description": "Voluseg processors",
+    "processors": [
+        {
+            "name": "voluseg_processor",
+            "description": "Run Voluseg for volumetric segmentation.",
+            "label": "voluseg_processor",
+            "image": "catalystneuro/dendro-voluseg:0.1.0",
+            "executable": "/app/main.py",
+            "inputs": [
+                {
+                    "name": "input",
+                    "description": "Input NWB file in .nwb or .nwb.lindi.tar format"
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "output",
+                    "description": "Output embedding in .lindi.tar format"
+                }
+            ],
+            "parameters": [
+                {
+                    "name": "detrending",
+                    "type": "str",
+                    "description": "Type of detrending: 'standard', 'robust', or 'none'",
+                    "defaultValue": "standard",
+                    "options": [
+                        "standard",
+                        "robust",
+                        "none"
+                    ]
+                },
+                {
+                    "name": "registration",
+                    "type": "str",
+                    "description": "Quality of registration: 'high', 'medium', 'low' or 'none'",
+                    "defaultValue": "medium",
+                    "options": [
+                        "high",
+                        "medium",
+                        "low",
+                        "none"
+                    ]
+                },
+                {
+                    "name": "registration_restrict",
+                    "type": "str",
+                    "description": "Restrict registration (e.g. 1x1x1x1x1x1x0x0x0x1x1x0)",
+                    "defaultValue": ""
+                },
+                {
+                    "name": "diam_cell",
+                    "type": "float",
+                    "description": "Cell diameter in microns",
+                    "defaultValue": 6.0
+                },
+                {
+                    "name": "ds",
+                    "type": "int",
+                    "description": "Spatial coarse-graining in x-y dimension",
+                    "defaultValue": 2
+                },
+                {
+                    "name": "planes_pad",
+                    "type": "int",
+                    "description": "Number of planes to pad the volume with for robust registration",
+                    "defaultValue": 0
+                },
+                {
+                    "name": "planes_packed",
+                    "type": "bool",
+                    "description": "Packed planes in each volume (for single plane imaging with packed planes)",
+                    "defaultValue": false
+                },
+                {
+                    "name": "parallel_clean",
+                    "type": "bool",
+                    "description": "Parallelization of final cleaning (True is fast but memory intensive)",
+                    "defaultValue": true
+                },
+                {
+                    "name": "parallel_volume",
+                    "type": "bool",
+                    "description": "Parallelization of mean-volume computation (True is fast but memory intensive)",
+                    "defaultValue": true
+                },
+                {
+                    "name": "save_volume",
+                    "type": "bool",
+                    "description": "Save registered volumes after segmentation (True keeps a copy of the volumes)",
+                    "defaultValue": false
+                },
+                {
+                    "name": "type_timepoints",
+                    "type": "str",
+                    "description": "Type of timepoints to use for cell detection: 'dff', 'periodic' or 'custom'",
+                    "defaultValue": "dff",
+                    "options": [
+                        "dff",
+                        "periodic",
+                        "custom"
+                    ]
+                },
+                {
+                    "name": "type_mask",
+                    "type": "str",
+                    "description": "Type of volume averaging for mask: 'mean', 'geomean' or 'max'",
+                    "defaultValue": "geomean",
+                    "options": [
+                        "mean",
+                        "geomean",
+                        "max"
+                    ]
+                },
+                {
+                    "name": "timepoints",
+                    "type": "int",
+                    "description": "Number ('dff', 'periodic') or vector ('custom') of timepoints for segmentation",
+                    "defaultValue": 1000
+                },
+                {
+                    "name": "f_hipass",
+                    "type": "float",
+                    "description": "Frequency (Hz) for high-pass filtering of cell timeseries",
+                    "defaultValue": 0
+                },
+                {
+                    "name": "f_volume",
+                    "type": "float",
+                    "description": "Imaging frequency in Hz",
+                    "defaultValue": 2.0
+                },
+                {
+                    "name": "n_cells_block",
+                    "type": "int",
+                    "description": "Number of cells in a block. Small number is fast but can lead to blocky output",
+                    "defaultValue": 316
+                },
+                {
+                    "name": "n_colors",
+                    "type": "int",
+                    "description": "Number of brain colors (2 in two-color volumes)",
+                    "defaultValue": 1
+                },
+                {
+                    "name": "res_x",
+                    "type": "float",
+                    "description": "X resolution in microns",
+                    "defaultValue": 0.40625
+                },
+                {
+                    "name": "res_y",
+                    "type": "float",
+                    "description": "Y resolution in microns",
+                    "defaultValue": 0.40625
+                },
+                {
+                    "name": "res_z",
+                    "type": "float",
+                    "description": "Z resolution in microns",
+                    "defaultValue": 5.0
+                },
+                {
+                    "name": "t_baseline",
+                    "type": "int",
+                    "description": "Interval for baseline calculation in seconds",
+                    "defaultValue": 300
+                },
+                {
+                    "name": "t_section",
+                    "type": "float",
+                    "description": "Exposure time in seconds for slice acquisition",
+                    "defaultValue": 0.01
+                },
+                {
+                    "name": "thr_mask",
+                    "type": "float",
+                    "description": "Threshold for volume mask: 0 < thr <= 1 (probability) or thr > 1 (intensity)",
+                    "defaultValue": 0.5
+                },
+                {
+                    "name": "ext",
+                    "type": "str",
+                    "description": "File extension",
+                    "defaultValue": ".nwb"
+                },
+                {
+                    "name": "dim_order",
+                    "type": "str",
+                    "description": "Dimensions order. Examples: 'zyx', 'xyz'",
+                    "defaultValue": "xyz"
+                },
+                {
+                    "name": "remote",
+                    "type": "bool",
+                    "description": "Remote file",
+                    "defaultValue": true
+                },
+                {
+                    "name": "output_to_nwb",
+                    "type": "bool",
+                    "description": "Save results to a new NWB file",
+                    "defaultValue": true
+                }
+            ],
+            "attributes": []
+        }
+    ]
+}
