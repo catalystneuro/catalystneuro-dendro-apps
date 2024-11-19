@@ -50,9 +50,10 @@ def main():
         service_name=service_name,
         job_definition=job_def,
         required_resources=required_resources,
+        target_compute_client_ids=["*"],
         tags=['example'],
         rerun_failing=True,
-        delete_failing=True
+        delete_failing=True,
     )
     print(job.job_url, job.status)
 
