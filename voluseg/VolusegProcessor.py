@@ -27,6 +27,16 @@ class VolusegProcessor(ProcessorBase):
         import lindi
         import voluseg
 
+        # Load input file
+        input = context.input
+        url = input.get_url()
+        assert url
+
+        if input.file_base_name.endswith('.lindi.json') or input.file_base_name.endswith('.lindi.tar'):
+            f = lindi.LindiH5pyFile.from_lindi_file(url)
+        else:
+            f = lindi.LindiH5pyFile.from_hdf5_file(url)
+
         # set and save parameters
         parameters0 = voluseg.parameter_dictionary()
         parameters0["dir_ants"] = "/ants-2.5.3/bin/"

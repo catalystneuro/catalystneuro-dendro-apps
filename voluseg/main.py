@@ -1,6 +1,7 @@
 from dendro.sdk import App
 from VolusegProcessor import VolusegProcessor
 
+
 app = App(
     app_name='voluseg',
     description='Voluseg processors'
