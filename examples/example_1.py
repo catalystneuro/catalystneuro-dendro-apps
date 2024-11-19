@@ -43,8 +43,8 @@ def main():
     required_resources = DendroJobRequiredResources(
         numCpus=24,
         numGpus=0,
-        memoryGb=4,
-        timeSec=3*3600
+        memoryGb=120,
+        timeSec=6*3600
     )
     job = submit_job(
         service_name=service_name,
