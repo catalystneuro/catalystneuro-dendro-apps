@@ -6,7 +6,7 @@
             "name": "voluseg_processor",
             "description": "Run Voluseg for volumetric segmentation.",
             "label": "voluseg_processor",
-            "image": "catalystneuro/dendro-voluseg:0.1.0",
+            "image": "ghcr.io/catalystneuro/dendro-voluseg:latest",
             "executable": "/app/main.py",
             "inputs": [
                 {
