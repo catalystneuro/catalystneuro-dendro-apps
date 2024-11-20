@@ -1,6 +1,6 @@
 FROM ghcr.io/mikarubi/voluseg/voluseg:docs
 
-USER root
+# USER root
 
 # Install git
 RUN apt-get update && apt-get install -y git
