@@ -49,6 +49,8 @@ jobs:
       - name: Build and push
         run: |
           cd ${{ matrix.app_dir }}
+          ls
+          pwd
           docker build -t ghcr.io/catalystneuro/dendro-${{ matrix.app_dir }}:latest .
           docker push ghcr.io/catalystneuro/dendro-${{ matrix.app_dir }}:latest
 
