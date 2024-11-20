@@ -1,4 +1,5 @@
-FROM ghcr.io/mikarubi/voluseg/voluseg:docs
+# FROM ghcr.io/mikarubi/voluseg/voluseg:docs
+FROM python:3.12.4-slim
 
 # Install git
 RUN apt-get update && apt-get install -y git
