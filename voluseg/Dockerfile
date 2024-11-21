@@ -15,7 +15,7 @@ RUN git clone https://github.com/magland/dendro \
 RUN pip install lindi
 
 # Install pynwb
-RUN pip install pynwb==2.8.3
+RUN pip install pynwb==2.8.1
 
 # Copy files into the container
 COPY *.py /app/
