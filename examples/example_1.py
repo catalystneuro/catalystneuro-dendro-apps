@@ -18,6 +18,7 @@ def main():
         "registration": "high",
         "diam_cell": 5.0,
         "f_volume": 2.0,
+        "timepoints": 1000,
     }
     job_def = DendroJobDefinition(
         appName='voluseg',
