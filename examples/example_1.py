@@ -36,7 +36,10 @@ def main():
         ],
     )
     required_resources = DendroJobRequiredResources(
-        numCpus=24, numGpus=0, memoryGb=120, timeSec=6 * 3600
+        numCpus=24,
+        numGpus=0,
+        memoryGb=120,
+        timeSec=6 * 3600,
     )
     job = submit_job(
         service_name=service_name,
@@ -44,6 +47,7 @@ def main():
         required_resources=required_resources,
         target_compute_client_ids=["*"],
         tags=["example"],
+        skip_cache=True,
     )
     print(job.job_url, job.status)
 
