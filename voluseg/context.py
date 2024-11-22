@@ -2,17 +2,19 @@ from dendro.sdk import BaseModel, Field, InputFile, OutputFile
 
 
 class VolusegContext(BaseModel):
-    input: InputFile = Field(description='Input NWB file in .nwb or .nwb.lindi.tar format')
-    output: OutputFile = Field(description='Output embedding in .lindi.tar format')
+    input: InputFile = Field(
+        description="Input NWB file in .nwb or .nwb.lindi.tar format"
+    )
+    output: OutputFile = Field(description="Output embedding in .lindi.tar format")
     detrending: str = Field(
         default="standard",
         description="Type of detrending: 'standard', 'robust', or 'none'",
-        json_schema_extra={'options': ["standard", "robust", "none"]},
+        json_schema_extra={"options": ["standard", "robust", "none"]},
     )
     registration: str = Field(
         default="medium",
         description="Quality of registration: 'high', 'medium', 'low' or 'none'",
-        json_schema_extra={'options': ["high", "medium", "low", "none"]},
+        json_schema_extra={"options": ["high", "medium", "low", "none"]},
     )
     registration_restrict: str = Field(
         default="",
@@ -49,12 +51,12 @@ class VolusegContext(BaseModel):
     type_timepoints: str = Field(
         default="dff",
         description="Type of timepoints to use for cell detection: 'dff', 'periodic' or 'custom'",
-        json_schema_extra={'options': ["dff", "periodic", "custom"]},
+        json_schema_extra={"options": ["dff", "periodic", "custom"]},
     )
     type_mask: str = Field(
         default="geomean",
         description="Type of volume averaging for mask: 'mean', 'geomean' or 'max'",
-        json_schema_extra={'options': ["mean", "geomean", "max"]},
+        json_schema_extra={"options": ["mean", "geomean", "max"]},
     )
     timepoints: int = Field(
         default=1000,

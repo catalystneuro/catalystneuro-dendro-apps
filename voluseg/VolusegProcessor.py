@@ -3,16 +3,17 @@ from context import VolusegContext
 
 
 class VolusegProcessor(ProcessorBase):
-    name = 'voluseg_processor'
-    description = 'Run Voluseg for volumetric segmentation.'
-    label = 'voluseg_processor'
-    image = 'ghcr.io/catalystneuro/dendro-voluseg:latest'
-    executable = '/app/main.py'
+    name = "voluseg_processor"
+    description = "Run Voluseg for volumetric segmentation."
+    label = "voluseg_processor"
+    image = "ghcr.io/catalystneuro/dendro-voluseg:latest"
+    executable = "/app/main.py"
     attributes = {}
 
     @staticmethod
     def run(context: VolusegContext):
         import os
+
         # import lindi
         import voluseg
 
