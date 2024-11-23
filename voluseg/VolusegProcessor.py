@@ -57,6 +57,7 @@ class VolusegProcessor(ProcessorBase):
         parameters0["t_baseline"] = context.t_baseline
         parameters0["t_section"] = context.t_section
         parameters0["thr_mask"] = context.thr_mask
+        parameters0["output_to_nwb"] = True
 
         voluseg.step0_process_parameters(parameters0)
         filename_parameters = str(
@@ -79,3 +80,5 @@ class VolusegProcessor(ProcessorBase):
 
         print("Clean cells...")
         voluseg.step5_clean_cells(parameters)
+
+        context.output.upload("/tmp/voluseg_output/cells0_clean.nwb")

@@ -30,7 +30,12 @@ def main():
                 url="https://dandiarchive.s3.amazonaws.com/blobs/057/ecb/057ecbef-e732-4e94-8d99-40ebb74d346e",
             )
         ],
-        outputFiles=[DendroJobOutputFile(name="output", fileBaseName="output.txt")],
+        outputFiles=[
+            DendroJobOutputFile(
+                name="output",
+                fileBaseName="cells0_clean.nwb",
+            )
+        ],
         parameters=[
             DendroJobParameter(name=k, value=v) for k, v in parameters_dict.items()
         ],
