@@ -1,2 +1,4 @@
-# voluseg-dendro-app
-Voluseg Dendro App
+# CatalystNeuro Dendro Apps
+
+- Voluseg
+- ...
