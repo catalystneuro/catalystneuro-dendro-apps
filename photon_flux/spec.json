@@ -1,0 +1,45 @@
+{
+    "name": "photon_flux",
+    "description": "Photon Flux Estimation processors",
+    "processors": [
+        {
+            "name": "photon_flux_processor",
+            "description": "Run Photon Flux Estimation for two photon imaging data.",
+            "label": "photon_flux_processor",
+            "image": "ghcr.io/catalystneuro/dendro-photon_flux_estimator:latest",
+            "executable": "/app/main.py",
+            "inputs": [
+                {
+                    "name": "input",
+                    "description": "Input NWB file in .nwb or .nwb.lindi.tar format"
+                }
+            ],
+            "outputs": [
+                {
+                    "name": "output",
+                    "description": "Output data in .json format"
+                }
+            ],
+            "parameters": [
+                {
+                    "name": "series_path",
+                    "type": "str",
+                    "description": "Path to the multiphoton series to process"
+                },
+                {
+                    "name": "subset_frames",
+                    "type": "list",
+                    "description": "Indices of frames to use for sensitivity estimation",
+                    "optional": true
+                },
+                {
+                    "name": "crop_edges",
+                    "type": "list",
+                    "description": "Number of pixels to crop from each edge of the frames: [top, bottom, left, right]",
+                    "optional": true
+                }
+            ],
+            "attributes": {}
+        }
+    ]
+}
