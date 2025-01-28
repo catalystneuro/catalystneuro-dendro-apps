@@ -1,5 +1,6 @@
 from dendro.sdk import ProcessorBase, InputFile, OutputFile
 from pydantic import BaseModel, Field
+from typing import List
 from photon_flux_estimation import PhotonFluxEstimator
 import json
 import h5py
@@ -13,10 +14,10 @@ class PhotonFluxContext(BaseModel):
     )
     output: OutputFile = Field(description="Output data in .json format")
     series_path: str = Field(description="Path to the multiphoton series to process")
-    subset_frames: list = Field(
+    subset_frames: List[int] = Field(
         description="Indices of frames to use for sensitivity estimation"
     )
-    crop_edges: list = Field(
+    crop_edges: List[int] = Field(
         description="Number of pixels to crop from each edge of the frames: [top, bottom, left, right]"
     )
 

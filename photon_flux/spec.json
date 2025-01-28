@@ -1,6 +1,6 @@
 {
     "name": "photon_flux",
-    "description": "Photon Flux Estimation processors",
+    "description": "Run Photon Flux Estimation for two photon imaging data.",
     "processors": [
         {
             "name": "photon_flux_processor",
@@ -28,18 +28,16 @@
                 },
                 {
                     "name": "subset_frames",
-                    "type": "list",
-                    "description": "Indices of frames to use for sensitivity estimation",
-                    "optional": true
+                    "type": "List[int]",
+                    "description": "Indices of frames to use for sensitivity estimation"
                 },
                 {
                     "name": "crop_edges",
-                    "type": "list",
-                    "description": "Number of pixels to crop from each edge of the frames: [top, bottom, left, right]",
-                    "optional": true
+                    "type": "List[int]",
+                    "description": "Number of pixels to crop from each edge of the frames: [top, bottom, left, right]"
                 }
             ],
-            "attributes": {}
+            "attributes": []
         }
     ]
 }
