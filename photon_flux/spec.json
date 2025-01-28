@@ -30,13 +30,13 @@
                     "name": "subset_frames",
                     "type": "list",
                     "description": "Indices of frames to use for sensitivity estimation",
-                    "optional": true
+                    "defaultValue": ""
                 },
                 {
                     "name": "crop_edges",
                     "type": "list",
                     "description": "Number of pixels to crop from each edge of the frames: [top, bottom, left, right]",
-                    "optional": true
+                    "defaultValue": ""
                 }
             ],
             "attributes": {}
