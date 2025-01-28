@@ -1,4 +1,4 @@
 # CatalystNeuro Dendro Apps
 
-- Voluseg
-- ...
+- voluseg
+- photon flux
