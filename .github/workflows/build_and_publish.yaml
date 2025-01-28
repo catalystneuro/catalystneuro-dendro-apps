@@ -15,6 +15,7 @@ jobs:
       matrix:
         app_dir:
           - voluseg
+          - photon_flux
 
     steps:
       - name: Checkout repository
