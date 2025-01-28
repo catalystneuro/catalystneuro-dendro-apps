@@ -1,5 +1,5 @@
-from dendro.sdk import ProcessorBase
-from dendro.sdk import BaseModel, Field, InputFile, OutputFile
+from dendro.sdk import ProcessorBase, InputFile, OutputFile
+from pydantic import BaseModel, Field
 from photon_flux_estimation import PhotonFluxEstimator
 import json
 import h5py

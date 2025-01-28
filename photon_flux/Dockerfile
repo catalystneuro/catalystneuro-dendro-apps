@@ -14,12 +14,13 @@ RUN pip install --no-cache-dir \
     h5py \
     photon_flux_estimation
 
-# Install dendro from github
-RUN mkdir -p /src && \
-    cd /src && \
-    git clone https://github.com/magland/dendro && \
-    cd dendro/python && \
-    pip install -e .
+# Install dendro
+RUN pip install dendro==0.6.20
+# RUN mkdir -p /src && \
+#     cd /src && \
+#     git clone https://github.com/magland/dendro && \
+#     cd dendro/python && \
+#     pip install -e .
 
 # Create app directory and set as working directory
 WORKDIR /app

@@ -3,13 +3,15 @@ FROM ghcr.io/mikarubi/voluseg/voluseg:dev
 # Install git
 RUN apt-get update && apt-get install -y git
 
-# Install dendro from github
 RUN mkdir -p /src
 WORKDIR /src
-RUN git clone https://github.com/magland/dendro \
-    && cd dendro \
-    && cd python \
-    && pip install -e .
+
+# Install dendro
+RUN pip install dendro==0.6.20
+# RUN git clone https://github.com/magland/dendro \
+#     && cd dendro \
+#     && cd python \
+#     && pip install -e .
 
 # Install lindi
 RUN pip install lindi
