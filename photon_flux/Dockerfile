@@ -8,11 +8,10 @@ RUN apt-get update && \
 
 # Install Python packages in one layer
 RUN pip install --no-cache-dir \
-    lindi \
     pynwb==2.8.1 \
-    remfile \
-    h5py \
-    photon_flux_estimation
+    remfile==0.1.13 \
+    h5py==3.12.1 \
+    photon_flux_estimation==0.1.0
 
 # Install dendro
 RUN pip install dendro==0.6.20
