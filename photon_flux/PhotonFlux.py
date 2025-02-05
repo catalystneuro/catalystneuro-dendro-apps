@@ -26,7 +26,7 @@ class PhotonFluxProcessor(ProcessorBase):
     name = "photon_flux_processor"
     description = "Run Photon Flux Estimation for two photon imaging data."
     label = "photon_flux_processor"
-    image = "ghcr.io/catalystneuro/dendro-photon_flux_estimator:latest"
+    image = "ghcr.io/catalystneuro/dendro-photon_flux:latest"
     executable = "/app/main.py"
     attributes = {}
 
