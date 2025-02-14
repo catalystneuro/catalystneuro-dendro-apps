@@ -9,6 +9,7 @@ RUN apt-get update && \
 # Install Python packages in one layer
 RUN pip install --no-cache-dir \
     pynwb==2.8.1 \
+    hdmf==3.14.6 \
     remfile==0.1.13 \
     h5py==3.12.1 \
     photon_flux_estimation==0.1.0
