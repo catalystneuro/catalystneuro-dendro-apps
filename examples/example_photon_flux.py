@@ -53,7 +53,7 @@ def main():
         service_name=service_name,
         job_definition=job_def,
         required_resources=required_resources,
-        target_compute_client_ids=["Y3S2SMgqVSSt"],
+        target_compute_client_ids=["IcUxwh0z6edS"],
         tags=["example"],
         skip_cache=True,
     )

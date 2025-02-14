@@ -2,6 +2,7 @@ from dendro.sdk import ProcessorBase, InputFile, OutputFile
 from pydantic import BaseModel, Field
 from typing import List
 from photon_flux_estimation import PhotonFluxEstimator
+import numpy as np
 import json
 import h5py
 import remfile
@@ -68,14 +69,33 @@ class PhotonFluxProcessor(ProcessorBase):
                     try:
                         # Create estimator and compute sensitivity
                         estimator = PhotonFluxEstimator(movie)
-                        results = estimator.compute_sensitivity()
+                        estimation_results = estimator.compute_sensitivity()
+
+                        # Convert model to class name and numpy values to Python native types in place
+                        if "model" in estimation_results:
+                            estimation_results["model"] = estimation_results[
+                                "model"
+                            ].__class__.__name__
+                        for key, value in estimation_results.items():
+                            if isinstance(value, np.ndarray):
+                                estimation_results[key] = value.tolist()
+                            elif isinstance(value, (np.floating, np.integer)):
+                                estimation_results[key] = float(value)
+                        results = estimation_results
 
                         # Compute photon flux movie
                         photon_flux = estimator.compute_photon_flux()
 
+                        # Add photon flux statistics
+                        results["photon_flux_stats"] = {
+                            "mean": float(photon_flux.mean()),
+                            "min": float(photon_flux.min()),
+                            "max": float(photon_flux.max()),
+                        }
+
                         output_fname = "output.json"
                         with open(output_fname, "w") as f:
-                            f.write(json.dumps(results))
+                            json.dump(results, f, indent=2)
 
                         print("Uploading output...")
                         context.output.upload(output_fname)
