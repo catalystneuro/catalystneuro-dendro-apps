@@ -19,7 +19,7 @@ def main():
     url = "https://dandiarchive.s3.amazonaws.com/blobs/a65/6b4/a656b41f-99f7-49e0-a13e-1b283b97a002"
 
     parameters_dict = {
-        "series_path": "",
+        "series_path": "acquisition/TwoPhotonSeries1",
         "subset_frames": list(range(500)),
         "crop_edges": [4, 4, 4, 4],
     }
