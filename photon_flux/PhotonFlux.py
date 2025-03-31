@@ -147,8 +147,30 @@ class PhotonFluxProcessor(ProcessorBase):
                         "max": float(photon_flux.max()),
                     }
 
-                    # TODO find a better way to output the photon flux movie
-                    # results["photon_flux"] = photon_flux.tolist()
+                    # Add mean photon flux mean image
+                    results["photon_flux_mean"] = photon_flux.mean(axis=0).tolist()
+
+                    # Add photon flux max image
+                    results["photon_flux_max"] = photon_flux.max(axis=0).tolist()
+
+                    # Add coefficient of variation (CV) matrix
+                    q = results["sensitivity"]
+                    b = results["zero_level"]
+                    m = movie.mean(axis=0)
+                    v = (
+                        (movie[1:, :, :].astype("float64") - movie[:-1, :, :]) ** 2 / 2
+                    ).mean(axis=0)
+                    imx = np.stack(((m - b) / q, v / q / q, (m - b) / q), axis=-1)
+                    coefficient_of_variation_matrix = np.minimum(
+                        1,
+                        np.sqrt(0.01 + np.maximum(0, imx / np.quantile(imx, 0.9999)))
+                        - 0.1,
+                    )
+                    results["coefficient_of_variation_matrix"] = (
+                        coefficient_of_variation_matrix.tolist()
+                    )
+
+                    # TODO create lindi output file instead of json
 
                     output_fname = "output.json"
                     with open(output_fname, "w") as f:
