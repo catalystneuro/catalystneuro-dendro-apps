@@ -77,6 +77,9 @@ class PhotonFluxContext(BaseModel):
     crop_edges: List[int] = Field(
         description="Number of pixels to crop from each edge of the frames: [top, bottom, left, right]"
     )
+    transpose_movie: bool = Field(
+        description="Whether to transpose the movie data. The photon flux estimation requires the movie to be in the shape (frames, height, width)."
+    )
 
 
 class PhotonFluxProcessor(ProcessorBase):
@@ -97,6 +100,7 @@ class PhotonFluxProcessor(ProcessorBase):
         series_path = context.series_path
         subset_frames = context.subset_frames
         crop_edges = context.crop_edges
+        transpose_movie = context.transpose_movie
 
         with File(file) as file:
             with NWBHDF5IO(file=file, load_namespaces=True) as io:
@@ -117,8 +121,10 @@ class PhotonFluxProcessor(ProcessorBase):
                     crop_edges[0] : -1 * crop_edges[1],
                 ]
 
-                # TODO add function to determine if the data needs to be transposed
-                movie = movie.transpose(0, 2, 1)
+                if transpose_movie:
+                    # Transpose the movie to have the shape (frames, height, width)
+                    # instead of (frames, width, height)
+                    movie = movie.transpose(0, 2, 1)
 
                 try:
                     # Create estimator and compute sensitivity
