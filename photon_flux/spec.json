@@ -35,6 +35,11 @@
                     "name": "crop_edges",
                     "type": "List[int]",
                     "description": "Number of pixels to crop from each edge of the frames: [top, bottom, left, right]"
+                },
+                {
+                    "name": "transpose_movie",
+                    "type": "bool",
+                    "description": "Whether to transpose the movie data. The photon flux estimation requires the movie to be in the shape (frames, height, width)."
                 }
             ],
             "attributes": []
