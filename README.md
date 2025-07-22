@@ -8,49 +8,27 @@ This repository contains containerized neuroimaging processors that can be deplo
 
 ## Applications
 
-### 🔬 Voluseg - Volumetric Segmentation
+### 🔬 [Voluseg](./voluseg/) - Volumetric Segmentation
 
-**Purpose**: Automated segmentation and analysis of volumetric calcium imaging data for identifying individual neurons in 3D brain volumes.
+Automated segmentation and analysis of volumetric calcium imaging data for identifying individual neurons in 3D brain volumes.
 
-**Key Features**:
-- Volumetric cell segmentation for two-photon and light-sheet microscopy data
-- Motion correction and registration capabilities
-- Flexible detrending options (standard, robust, or none)
-- Configurable registration quality levels (high, medium, low, none)
-- Parallel processing support for improved performance
-- Support for multi-color imaging data
+- **Input**: NWB files with volumetric imaging data
+- **Output**: Segmented cell data in NWB format
+- **Use Case**: Two-photon and light-sheet microscopy cell segmentation
 
-**Input**: NWB files containing volumetric imaging data (`.nwb` or `.nwb.lindi.tar` format)
-**Output**: Segmented cell data in NWB format (`.lindi.tar` format)
+📖 **[View detailed documentation](./voluseg/README.md)**
 
-**Key Parameters**:
-- `diam_cell`: Expected cell diameter in microns (default: 6.0)
-- `registration`: Registration quality level
-- `detrending`: Type of signal detrending to apply
-- `f_volume`: Imaging frequency in Hz
-- `timepoints`: Number of timepoints for segmentation analysis
+### ⚡ [Photon Flux](./photon_flux/) - Two-Photon Sensitivity Estimation
 
-### ⚡ Photon Flux - Two-Photon Sensitivity Estimation
+Estimates photon flux and sensitivity parameters for two-photon imaging data to assess data quality and optimize imaging parameters.
 
-**Purpose**: Estimates photon flux and sensitivity parameters for two-photon imaging data to assess data quality and optimize imaging parameters.
+- **Input**: NWB files with two-photon imaging series
+- **Output**: Photon flux analysis results in JSON format
+- **Use Case**: Data quality assessment
 
-**Key Features**:
-- Photon flux estimation for two-photon microscopy data
-- Frame subset analysis for efficient processing
-- Edge cropping capabilities to remove artifacts
-- Movie transposition support for proper data orientation
-- Quality assessment metrics for imaging data
+📖 **[View detailed documentation](./photon_flux/README.md)**
 
-**Input**: NWB files containing two-photon imaging series (`.nwb` or `.nwb.lindi.tar` format)
-**Output**: Photon flux analysis results in JSON format
-
-**Key Parameters**:
-- `series_path`: Path to the multiphoton series within the NWB file
-- `subset_frames`: Specific frame indices to analyze
-- `crop_edges`: Number of pixels to crop from each edge [top, bottom, left, right]
-- `transpose_movie`: Whether to transpose movie data for proper orientation
-
-## Getting Started
+## Quick Start
 
 ### Prerequisites
 
@@ -66,83 +44,46 @@ git clone https://github.com/catalystneuro/catalystneuro-dendro-apps.git
 cd catalystneuro-dendro-apps
 ```
 
-2. Install the required dependencies:
+2. Install the Dendro Python client:
 ```bash
 pip install dendro-python-client
 ```
 
-### Usage Examples
-
-#### Running Voluseg Analysis
+### Basic Usage
 
 ```python
 from dendro.client import submit_job, DendroJobDefinition, DendroJobRequiredResources
 
-# Configure voluseg job
+# Example: Submit a Voluseg job
 job_def = DendroJobDefinition(
     appName="voluseg",
     processorName="voluseg_processor",
     inputFiles=[...],  # Your NWB input files
     outputFiles=[...], # Output configuration
-    parameters=[
-        DendroJobParameter(name="registration", value="high"),
-        DendroJobParameter(name="diam_cell", value=5.0),
-        DendroJobParameter(name="f_volume", value=2.0),
-    ]
+    parameters=[...]   # Processing parameters
 )
 
-# Submit job with resource requirements
 job = submit_job(
     service_name="your-service-name",
     job_definition=job_def,
-    required_resources=DendroJobRequiredResources(
-        numCpus=24,
-        numGpus=0,
-        memoryGb=120,
-        timeSec=6 * 3600
-    )
+    required_resources=DendroJobRequiredResources(...)
 )
 ```
 
-#### Running Photon Flux Analysis
-
-```python
-# Configure photon flux job
-job_def = DendroJobDefinition(
-    appName="photon_flux",
-    processorName="photon_flux_processor",
-    inputFiles=[...],  # Your NWB input files
-    outputFiles=[...], # Output configuration
-    parameters=[
-        DendroJobParameter(name="series_path", value="acquisition/TwoPhotonSeries1"),
-        DendroJobParameter(name="subset_frames", value=list(range(500))),
-        DendroJobParameter(name="crop_edges", value=[4, 4, 4, 4]),
-    ]
-)
-
-# Submit with lighter resource requirements
-job = submit_job(
-    service_name="photon_flux",
-    job_definition=job_def,
-    required_resources=DendroJobRequiredResources(
-        numCpus=2,
-        numGpus=0,
-        memoryGb=4,
-        timeSec=3600
-    )
-)
-```
+For detailed usage examples and parameter descriptions, see the individual application documentation.
 
 ## Repository Structure
 
 ```
 catalystneuro-dendro-apps/
 ├── voluseg/                    # Voluseg application
+│   ├── README.md              # Detailed Voluseg documentation
 │   ├── Dockerfile             # Container definition
 │   ├── main.py               # Application entry point
 │   ├── spec.json             # Processor specification
 │   └── VolusegProcessor.py   # Core processing logic
 ├── photon_flux/               # Photon flux application
+│   ├── README.md              # Detailed Photon Flux documentation
 │   ├── Dockerfile            # Container definition
 │   ├── main.py              # Application entry point
 │   ├── spec.json            # Processor specification
@@ -156,17 +97,24 @@ catalystneuro-dendro-apps/
 
 ## Docker Images
 
-Both applications are available as pre-built Docker images:
+Pre-built Docker images are available for both applications:
 
 - **Voluseg**: `ghcr.io/catalystneuro/dendro-voluseg:latest`
 - **Photon Flux**: `ghcr.io/catalystneuro/dendro-photon_flux:latest`
 
 ## Data Compatibility
 
-These applications are designed to work with:
+These applications work with:
 - **NWB (Neurodata Without Borders)** format files
 - **LINDI** (Linked Data Interface) format for efficient cloud access
 - Data from **DANDI Archive** and other NWB-compatible repositories
+
+## Examples
+
+Working examples for both applications are available in the [`examples/`](./examples/) directory:
+
+- [`example_1.py`](./examples/example_1.py) - Voluseg volumetric segmentation
+- [`example_photon_flux.py`](./examples/example_photon_flux.py) - Photon flux analysis
 
 ## Contributing
 
